@@ -42,6 +42,7 @@ char	*ft_line(char **line, int fd)
 			return (ft_strchr(buffer, '\n'));
 			break ;
 		}
+		free(buffer);
 	}
 	return (NULL);
 }
@@ -54,7 +55,10 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!last)
-		line = "";
+	{
+		line = malloc(1 * sizeof(char));
+		line[0] = '\0';
+	}
 	else
 		line = last;
 	last = ft_line(&line, fd);
@@ -64,11 +68,10 @@ char	*get_next_line(int fd)
 
 int	main()
 {
-	// int fd = open("helloworld.txt", O_RDONLY);
-	// int r = 1;
-	// while(r > 0)
-	// 	r = printf("%s",get_next_line(fd));
-    // close(fd);
-	printf("SDfsdfsdf");
+	int fd = open("helloworld.txt", O_RDONLY);
+	int r = 1;
+	while(r > 0)
+		r = printf("%s",get_next_line(fd));
+    close(fd);
 	return(0);
 }
