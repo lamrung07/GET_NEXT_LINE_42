@@ -61,3 +61,13 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
+
+int	main(void)
+{
+	int fd = open("helloworld.txt", O_RDONLY);
+	int r = 1;
+	while(r > 0)
+		r = printf("%s",get_next_line(fd));
+    close(fd);
+	return(0);
+}
