@@ -13,29 +13,30 @@
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s);
-size_t	ft_strlcat(char *dest, char *src, size_t size);
 int		ft_newline(char	*str);
 
-void	ft_line(char **line, int fd)
+int	ft_line(char **line, int fd)
 {
 	int		r;
 	char	*buffer;
 
+	r = 1;
 	while (r > 0)
 	{
 		buffer = malloc((BUFFER_SIZE + 1)* sizeof(char));
 		r = read(fd, buffer, BUFFER_SIZE);
 		buffer[BUFFER_SIZE] = '\0';
 		*line = ft_strjoin(*line, buffer);
-		if (ft_newline(buffer))
+		if (ft_newline(buffer) >= 0)
 			break;
 	}
+	return(0);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	// static int	last;
+	// static char	*last;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
@@ -47,10 +48,9 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-
 int	main(void)
 {
 	int fd = open("helloworld.txt", O_RDONLY);
-	printf("%s", get_next_line(fd));
+	while(printf("%s", get_next_line(fd)))
     close(fd);
 }
