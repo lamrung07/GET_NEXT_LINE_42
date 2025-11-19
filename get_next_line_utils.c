@@ -6,7 +6,7 @@
 /*   By: ngulam <ngulam@student.42lehavre.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 09:34:06 by ngulam            #+#    #+#             */
-/*   Updated: 2025/11/17 17:34:48 by ngulam           ###   ########.fr       */
+/*   Updated: 2025/11/19 22:08:44 by ngulam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	while (s1[j])
 		res[i++] = s1[j++];
 	j = 0;
-	while (s2[j] && s2[j] != '\n')
+	while (s2[j])
 	{
-		res[i++] = s2[j++];
+		res[i] = s2[j];
+		if (s2[j] == '\n')
+			break ;
+		i++;
+		j++;
 	}
 	return (res);
 }
@@ -65,10 +69,27 @@ char	*ft_strchr(const char *s, int c)
 	while (s[i])
 	{
 		if (s[i] == (char)c)
-			return ((char *)&s[i]);
+			return ((char *)&s[i + 1]);
 		i++;
 	}
-	if ((char)c == '\0')
-		return ((char *)&s[i]);
 	return (NULL);
+}
+
+char	*ft_strdup(const char *s)
+{
+	char	*res;
+	int		i;
+
+	if (s == NULL)
+		return ("");
+	res = ft_calloc((ft_strlen(s) + 1), sizeof(char));
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		res[i] = s[i];
+		i++;
+	}
+	return (res);
 }
