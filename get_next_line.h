@@ -6,7 +6,7 @@
 /*   By: ngulam <ngulam@student.42lehavre.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/08 09:36:24 by ngulam            #+#    #+#             */
-/*   Updated: 2025/11/19 22:45:51 by ngulam           ###   ########.fr       */
+/*   Updated: 2025/11/24 21:17:36 by ngulam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 5
 # endif
 # include <unistd.h>
 # include <stdlib.h>
