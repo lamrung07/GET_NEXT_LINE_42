@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngulam <ngulam@student.42lehavre.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/08 09:37:19 by ngulam            #+#    #+#             */
-/*   Updated: 2025/12/04 21:10:32 by ngulam           ###   ########.fr       */
+/*   Created: 2025/12/04 20:56:52 by ngulam            #+#    #+#             */
+/*   Updated: 2025/12/04 21:12:40 by ngulam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_merge(char	*buffer_line, char	*buffer)
 {
@@ -98,35 +98,42 @@ char	*ft_getfull(int fd, char	*buffer_line, char	*buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer_line;
+	static char	*buffer_line[1024];
 	char		*res;
 	char		*buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		free(buffer_line);
-		buffer_line = NULL;
+		free(buffer_line[fd]);
+		buffer_line[fd] = NULL;
 		return (NULL);
 	}
 	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
-	buffer_line = ft_getfull(fd, buffer_line, buffer);
-	if (!buffer_line)
+	buffer_line[fd] = ft_getfull(fd, buffer_line[fd], buffer);
+	if (!buffer_line[fd])
 		return (NULL);
-	res = ft_get_line(buffer_line);
-	buffer_line = ft_update(buffer_line);
+	res = ft_get_line(buffer_line[fd]);
+	buffer_line[fd] = ft_update(buffer_line[fd]);
 	return (res);
 }
 
 // int	main(void)
 // {
 // 	int fd = open("helloworld.txt", O_RDONLY);
+//  int fd1 = open("Daoduckinh.txt", O_RDONLY);
+//  int fd2 = open("Tho.txt", O_RDONLY);
 // 	int r = 1;
-// 	while(r <= 4)
-// 	{	
-// 		printf("%s", get_next_line(fd));
-// 		r++;
-// 	}
-//     close(fd);
-// }
+// 	printf("%s", get_next_line(fd));
+//  printf("%s", get_next_line(fd2));
+//  printf("%s", get_next_line(fd1));
+//  printf("%s", get_next_line(fd1));
+//  printf("%s", get_next_line(fd2));
+//  printf("%s", get_next_line(fd));
+//  printf("%s", get_next_line(fd));
+//  printf("%s", get_next_line(fd1));
+//  close(fd);
+//  close(fd1);
+//  close(fd2);
+// 
